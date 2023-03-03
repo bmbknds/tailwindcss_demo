@@ -1,7 +1,13 @@
 const plugin = require("tailwindcss/plugin");
+const { createThemes } = require("tw-colors");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], // Add source that tailwind will read through to generate classname
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js",
+  ], // Add source that tailwind will read through to generate classname
   darkMode: "class", //Toggle dark mode by adding class "dark" to root
   safelist: [
     {
@@ -46,5 +52,26 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("tw-elements/dist/plugin"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/line-clamp"),
+    createThemes({
+      light: {
+        primary: "steelblue",
+        secondary: "darkblue",
+        brand: "#F3F3F3",
+      },
+      dark: {
+        primary: "turquoise",
+        secondary: "tomato",
+        brand: "#4A4A4A",
+      },
+      forest: {
+        primary: "#2A9D8F",
+        secondary: "#E9C46A",
+        brand: "#264653",
+      },
+    }),
+  ],
 };
