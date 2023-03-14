@@ -1,11 +1,13 @@
 import { routes } from "@/routes/route";
 import { useDarkMode } from "@/hooks/useDarkMode.js";
+import { useTheme, THEMES } from "@/hooks/useTheme.js";
 import { SlideBarItem } from "./SlideBarItem/SideBarItem";
 import { Outlet } from "react-router-dom";
-import { Switch } from "@headlessui/react";
+import { Listbox } from "@headlessui/react";
 
 function SideBar() {
-  const [darkMode, setDarkMode] = useDarkMode();
+  // const [setTheme, setDarkMode] = useDarkMode();
+  const [theme, setTheme] = useTheme();
   return (
     <div className="flex-row flex bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
       <div className="w-1/6 h-screen shadow-md  " id="sidenavSecExample">
@@ -35,21 +37,19 @@ function SideBar() {
           </div>
         </nav>
         <div class="space-x-4 text-center ">
-          <span>Light</span>
-          <Switch
-            checked={darkMode}
-            onChange={setDarkMode}
-            className={`${
-              darkMode ? "bg-blue-600" : "bg-gray-200"
-            } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none `}
-          >
-            <span
-              className={`${
-                darkMode ? "translate-x-6" : "translate-x-1"
-              } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
-            />
-          </Switch>
-          <span>Dark</span>
+          <div class="flex justify-center">
+            <div class="mb-3 xl:w-96">
+              <select
+                value={theme}
+                onChange={(event) => setTheme(event.target.value)}
+                data-te-select-init
+              >
+                {THEMES.map((item) => (
+                  <option value={item.value}>{item.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
       <div className="w-5/6 h-screen overflow-auto p-4">

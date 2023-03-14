@@ -1,6 +1,13 @@
 const plugin = require("tailwindcss/plugin");
-const { createThemes } = require("tw-colors");
 
+function withOpacity(variableName) {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return `rgba(var(${variableName}), ${opacityValue})`;
+    }
+    return `rgb(var(${variableName}))`;
+  };
+}
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -39,16 +46,27 @@ module.exports = {
     // screens: {
     //   "2k": "2560px",
     // },
+
     extend: {
-      //
-      colors: {
-        nashtech: "#e31329",
+      textColor: {
+        skin: {
+          base: withOpacity("--color-text-base"),
+          muted: withOpacity("--color-text-muted"),
+          inverted: withOpacity("--color-text-inverted"),
+        },
       },
-      spacing: {
-        nashtech: "199px",
+      backgroundColor: {
+        skin: {
+          fill: withOpacity("--color-fill"),
+          "button-accent": withOpacity("--color-button-accent"),
+          "button-accent-hover": withOpacity("--color-button-accent-hover"),
+          "button-muted": withOpacity("--color-button-muted"),
+        },
       },
-      screens: {
-        "2k": "2560px",
+      gradientColorStops: {
+        skin: {
+          hue: withOpacity("--color-fill"),
+        },
       },
     },
   },
@@ -56,22 +74,5 @@ module.exports = {
     require("tw-elements/dist/plugin"),
     require("@tailwindcss/forms"),
     require("@tailwindcss/line-clamp"),
-    createThemes({
-      light: {
-        primary: "steelblue",
-        secondary: "darkblue",
-        brand: "#F3F3F3",
-      },
-      dark: {
-        primary: "turquoise",
-        secondary: "tomato",
-        brand: "#4A4A4A",
-      },
-      forest: {
-        primary: "#2A9D8F",
-        secondary: "#E9C46A",
-        brand: "#264653",
-      },
-    }),
   ],
 };

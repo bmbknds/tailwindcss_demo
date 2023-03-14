@@ -4,6 +4,7 @@ import SideBar from "@/components/SideBar";
 import Color from "@/pages/colors";
 import Form from "@/pages/form";
 import Customization from "@/pages/customization";
+import Themes from "@/pages/Themes";
 
 export function Root() {
   return (
@@ -28,6 +29,11 @@ export const routes = [
     name: "Customization",
     path: "/customization",
     element: <Customization />,
+  },
+  {
+    name: "Themes",
+    path: "/themes",
+    element: <Themes />,
   },
 ];
 
